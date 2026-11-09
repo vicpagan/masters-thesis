@@ -1,0 +1,273 @@
+------------------------------------------------------------------------------------------------------
+[10.5555/2811302] BOOK: \cite{Yves_book}
+  - NOT REAL-TIME
+  - "standard" reference to fault-tolerance in the HPC context
+
+------------------------------------------------------------------------------------------------------
+[7348659] TITLE: Approximate Computing: A Survey
+
+GENERAL REF ON APPRO
+  
+------------------------------------------------------------------------------------------------------
+SAME AUTHORS:
+[NOT CITE] BOOK TITLE: "Approximate Computing and its Impact on Accuracy, Reliability and Fault-Tolerance"
+URL: https://link.springer.com/book/10.1007/978-3-031-15717-2		PDF: N/A 
+[NOT CITE ELECTRONICS JOURNAL] ARTICLE TITLE: "Survey on Approximate Computing and Its Intrinsic Fault Tolerance"
+URL: https://www.mdpi.com/2079-9292/9/4/557	PDF: RODRIGUES_KASTENSMIDT_BOSIO_2020.pdf 
+  
+  - About techniques to render computation approximate (hardware (DVFS, other) and software (loop perforation, etc))
+  - NOT ABOUT FAIL/STOP FAILURES AT ALL: about reliability of obtained results
+  - COMMON THEME IN THE APPROX LIT
+
+------------------------------------------------------------------------------------------------------
+[10.1145/3716845] TITLE: "Approximate Computing Survey, Part I: Terminology and Software & Hardware Approximation Techniques"
+[10.1145/3711683] TITLE: "Approximate Computing Survey, Part II: Application-Specific & Architectural Approximation Techniques and Applications"
+URL: https://dl.acm.org/doi/10.1145/3716845	PDF:  3716845.pdf
+URL: https://dl.acm.org/doi/10.1145/3711683	PDF: 3711683.pdf
+
+    - BASIC APPROX REF
+
+    - CONTAINS A LARGE SURVEY
+    - LISTS SOFTWARE APPROX TECHNIQUES 
+    - LISTS HARDEARE APPROX TECHNIQUES (MASSIVE SECTION 5)
+    - NOT ABOUT FAULT_TOLERANCE
+
+
+------------------------------------------------------------------------------------------------------
+[128754] TITLE: "Structuring large real-time systems with performance polymorphism"
+URL: https://ieeexplore.ieee.org/document/128754	PDF: Structuring_large_real.pdf
+
+  - FAULTS: FAIL STOP
+  - DEADLINE: 
+  - Gives a name to our "multiple versions" idea
+  - Focuses on language issues to implement the idea of performance polymorphism
+  - Mentions scheduling but conveniently doesn't deal with the notion of error (just mentions it in the abstract/intro)
+
+------------------------------------------------------------------------------------------------------
+[10.1145/3589950] TITLE: "Software Fault Tolerance in Real-Time Systems: Identifying the Future Research Questions"
+URL: https://dl.acm.org/doi/full/10.1145/3589950   PDF: papers/3589950.pdf
+
+  - REAL-TIME
+  - A paper about "what are the future research questions?"
+  - "Once a fault occurs, the overhead introduced by time redundancy techniques may require the system to degrade the application quality-of-service, for instance, by reducing the result accuracy. The presence of approximate computing adds a new dimension to be explored for trade-offs, that is, the output accuracy is traded for real-time and/or fault-tolerant guarantees."
+  - "Research Question20. Approximate computing can be exploited to carry out less-precise results during/after a fault event. How do fault tolerance, real-time scheduling, and output precision interact in this context? Can schedulability be linked to the result precision and fault tolerance requirements?"
+
+  - Cites [68] with the idea: checkpoint more frequently when closer to the deadline (different checkpointing concern than the standard stuff)
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+[10.1145/2442087.2442094] TITLE: "Shared recovery for energy efficiency and reliability enhancements in real-time applications with precedence constraints"
+URL: https://dl.acm.org/doi/10.1145/2442087.2442094   PDF: 2442087.2442094.pdf
+
+  - REAL-TIME
+  - PERIODIC: BOTH
+  - GOAL: Minimize energy consumption
+  - TASK DEPENDENCIES: DAG
+  - FAULTS: SILENT/SOFT ERROR due to DVFS, discovered at the end of an execution
+  - DEADLINE: INDIVIDUAL 
+  - VERSIONS: 
+	- DVFS (Probability of error increases with low voltage )
+  - METHOD: Schedule a "recovery" task at max frequency, which is executed in case the task failed
+
+------------------------------------------------------------------------------------------------------
+[10.1007/s11227-021-03764-x] TITLE: "Reliability-aware task scheduling for energy efficiency on heterogeneous multiprocessor systems"
+URL: https://link.springer.com/article/10.1007/s11227-021-03764-x	PDF:  s11227-021-03764-x.pdf 
+
+  - REAL-TIME
+  - PERIODIC: NO
+  - GOAL: Minimize energy consumption
+  - TASK DEPENDENCIES: DAG
+  - HETEROGENEOUS PLATFORM
+  - FAULT: SILENT/SOFT ERROR due to DVFS (increases with decreased freq)
+  - VERSIONS: 
+ 	- DVFS (Probability of error increases with low voltage )
+  - DEADLINE: global (makespan constraint)
+  - METHOD: Pick versions so as to meet an overall reliability bound
+
+------------------------------------------------------------------------------------------------------
+[10.1002/cpe.4208] TITLE: "Scheduling real-time bag-of-tasks applications with approximate computations in SaaS clouds"
+URL: https://onlinelibrary.wiley.com/doi/10.1002/cpe.4208	PDF: Stavrinides.pdf 
+
+  - YEAR: 2017
+  - deadline and approx: sacrifice quality to meet deadline
+  - PERIODIC: NO
+  - FAULTS: NONE
+  - TASK DEPENDENCIES: NONE (embarrassingly parallel)
+  - DEADLINE: Job-wise (jobs include independent tasks)
+  - VERSIONS:
+	- monotone: mandatory part followed by optional, that continuously improves error
+  - TECHNIQUE: Simple heuritics mades on MinMin, MaxMin, Sufferage: allow a task to go beyond the mandatory part until deadline.... (super lame)
+
+
+------------------------------------------------------------------------------------------------------
+[10.1007/978-3-642-21713-5_20] TITLE: "The Impact of Input Error on the Scheduling of Task Graphs with Imprecise Computations in Heterogeneous Distributed Real-Time Systems"
+URL: https://link.springer.com/chapter/10.1007/978-3-642-21713-5_20	PDF: 978-3-642-21713-5_20.pdf
+
+   YEAR: 2011
+  - NO FAULTS!
+  - PERIODIC: NO
+  - TASK DEPENDENCIES: DAG
+  - HETEROGENEOUS PLATFORMS (authors did HOMOGENEOUS in ref [7])
+  - DEADLINES: job-wise (Each job is a DAG)
+  - VERSIONS:
+	- monotone: Still a mandatory and then an optional part (that runs longer to reduce error)
+	- mandatory part of child will be extended (to correct error)
+  - BOUND ON ERROR (some optional must be done)
+  - TECHNIQUE: Standard heuristic scheduling stuff
+
+------------------------------------------------------------------------------------------------------
+[10.1016/j.future.2019.02.019] TITLE: "An energy-efficient, QoS-aware and cost-effective scheduling approach for real-time workflow applications in cloud computing systems utilizing DVFS and approximate computations"
+URL: https://dl.acm.org/doi/abs/10.1016/j.future.2019.02.019	PDF: 1-s2.0-S0167739X18327353-main.pdf): 
+
+  YEAR: 2019
+
+  - NO FAULTS
+  - PERIODIC: NO
+  - TASK DEPENDENCIES: DAG
+  - VERSIONS: 
+	- DVFS
+	- monotone: Mandatory part + optional part
+	- mandatory part is extended to deal with errors from parents
+  - DEADLINE: Job-wise (jobs are multi-task)
+  - GOAL: energy, error, pricing
+  - scheduling with approx computing, but no fault
+  - TECHNIQUE: Standard heuristic
+
+
+------------------------------------------------------------------------------------------------------
+[10.1177/0037549709340729] TITLE: "Fault-tolerant Gang Scheduling in Distributed Real-time Systems Utilizing Imprecise Computations" 
+URL: https://journals.sagepub.com/doi/abs/10.1177/0037549709340729?download=true	PDF: stavrinides-karatza-2009.pdf
+
+  - jobs with deadlines arrive, 
+  - jobs use periodic checkpointing
+  - TASK DEP: INDEP
+  - considers the possibility of imprecise computation
+	- IF there is a failure during the mandatory part: roll back to the checkpoint taken after mandatory had finished
+  - "Our goal is to guarantee that every job will complete at least its mandatory part before its deadline is reached"
+
+  - "Moreover, we assume that no more than one failure may occur during the execution of a particular job."
+
+  - maximizes some notion average quality (like us, ish)
+
+
+------------------------------------------------------------------------------------------------------
+[259428] TITLE: "Imprecise Computations" 
+URL: https://ieeexplore.ieee.org/document/259428	PDF: Imprecise_computations.pdf
+
+  - FOUNDATIONAL PAPER: sets up various variations of the problem scheduling problem
+    - consideres different options: cumulative applications: the error accumulates (like in our case)
+    - consider task or end-to-end deadline
+    - monotone tasks: Mandatoy and optional parts to each task
+    - checkponting to save "results so far" and the mandatory part (same as stavrinides-karatza-2009.pdf)
+
+   REFS 10 to 14: multiple versions of a task!
+
+------------------------------------------------------------------------------------------------------
+[STAVRINIDES20101004] TITLE: "Scheduling multiple task graphs with end-to-end deadlines in distributed real-time systems utilizing imprecise computations"
+URL: https://www.sciencedirect.com/science/article/abs/pii/S0164121209003380	PDF: 1-s2.0-S0164121209003380-main.pdf
+
+  - YEAR: 20100
+  - FAULTS: NO!
+  - PERIODIC: NO
+  - DEADLINE: END-TO-END
+  - VERSIONS: 
+	- MANDATORY + OPTIONAL (the more optional, the lower the error)
+        - ONE MAY NEED TO RUN LONGER TO "CLEAN UP" THE ERROR
+  - Monotone jobs: That is, the accuracy of its intermediate results is increased as more time is spent to produce them. If the execution of a monotone job is fully completed, then the results are precise.
+  - Talks about the variable bit rate for video example
+  - "Hence, imprecise computations can provide scheduling flexibility in real-time systems, by trading off precision for timeliness"
+  - End-to-end Deadline for a task graph: like us
+  - "In the case of imprecise computations, each component task is assumed to be monotone and that it consists of a mandatory part, followed by an optional part"
+     - THE OPTIONAL PART KEEPS INCREASING THE GOODNESS (is that always the case in these monotone works?)
+  - If a task's input has high error, that could increase the processing time of the next task (our model allows for that). But they ASSUME that "that the optional part of a task is not affected by the task’s input error and that a task can always eliminate its input error and produce precise results, by extending the processing time of its mandatory part". 
+  - They modify standard scheduling algorithms to decide how long to spend in the optional part
+
+
+------------------------------------------------------------------------------------------------------
+[585499] TITLE: "Algorithms for Scheduling Real-Time Tasks with Input Error and End-to-End Deadlines"
+URL: https://ieeexplore.ieee.org/document/585499	PDF: Algorithms_for_scheduling_real-time.pdf
+
+  - YEAR: 1997
+  - Same domain as above paper
+  - TASK DEP: CHAIN
+  - PERIODIC: NO
+  - FAULTS: NO!
+  - DEADLINE: END-TO-END
+  - VERSIONS: 
+	- MANDATORY + OPTIONAL (the more optional, the lower the error)
+
+------------------------------------------------------------------------------------------------------
+[1183950] TITLE: "A fault-tolerant scheduling algorithm for real-time periodic tasks with possible software faults" 
+URL: https://ieeexplore.ieee.org/document/1183950 A_fault-tolerant_scheduling_algorithm.pdf
+
+  - FAULTS: SILENT ERRORS (DETECTED VIA VERIFICATION, WHICH IS COSTLIER FOR FANCIER TASK VERSION)? Or bug-caused fail stop (no hardware failure)
+  - PERIODIC: YES
+  - DEADLINE: PER TASK
+  - TASK DEP: INDEP
+  - VERSIONS: 
+	- PRIMARY and ALTERNATE
+  - "One way to avoid missing deadlines is to trade the quality of computation results for timeliness and software fault tolerance is often achieved with the use of redundant programs"
+  - "A variation of imprecise computation, called performance polymorphism, is to use two or more means to carry out a computation [Structuring_large_real.pdf]."
+  - References [5] and [6] are on the same settings, I believe
+  - Preemptive scheduling
+  - Question: No version selection problem: always try primary if feasible
+  	- It's dynamic: at some point, abort the primary and start the alternate from scratch because the deadline is too close
+	 (I guess it's hard to predict the time due to their preemptive model)
+
+------------------------------------------------------------------------------------------------------
+[7570524] TITLE: "Scheduling real-time parallel applications in saas clouds in the presence of transient software failures." 
+URL: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7570524	PDF: Scheduling_real-time_parallel_applications.pdf
+
+  - PERIODIC: NO
+  - DEADLINES: GLOBAL
+  - TASK DEP: TIGHTLY COUPLED
+  - FAULTS: fail/stop (software errors)
+    - "It is assumed that no more than one software failure may occur during the execution of an application. When a failure occurs, all of the parallel tasks of the application are rolled back to their beginning and the application resumes execution."
+  - Tightly coupled parallel application each with a deadline
+  - VERSIONS: 
+	- motone stuff as usual
+  - APPROACH:
+	- Periodic CHECKPOINTING
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+[X15] TITLE: "LEXACT: Low Energy N-Modular Redundancy Using Approximate Computing for Real-Time Multicore Processors"  
+URL: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8003502 	PDF: LEXACT_Low_Energy.pdf
+
+  - Really hardware stuff
+  - VERSIONS: TWO VERSIONS OF A TASK - ONE EXACT and ONE APPROXIMATE
+  - TECHNIQUE: TASK REPLICAS
+  - NOTION OF A QUALITY THRESHOLD
+  - FAULTS: SILENT ERROR:  comparison of results for voting
+  - "Reducing the execution time of an application will extend the opportunity for redundant execution of the task before the deadline" 
+
+
+
+
+
+========================== BELOW IS IRRELEVANT ===============================
+
+------------------------------------------------------------------------------------------------------
+TITLE: "Mixed precision support in HPC applications: What about reliability?"
+URL: https://www.sciencedirect.com/science/article/abs/pii/S0743731523001168
+
+  - All about silent-data corruption
+
+------------------------------------------------------------------------------------------------------
+TITLE: "Mixed precision support in HPC applications: What about reliability?" 
+URL: https://www.sciencedirect.com/science/article/abs/pii/S0743731523001168	
+	- Silent error, not about fail-stop
+
+
+
+

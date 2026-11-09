@@ -1,0 +1,86 @@
+\section{Motivating Use Case}
+\label{sec:use-case}
+
+A current use case in the field of fusion energy science is presented
+in~\cite{10678736}, where the objective is to operate 
+reactors such as the International Thermonuclear Experimental Reactor
+(ITER). These reactors are equipped with sensors to monitor the state of
+the plasma and of the reactor itself. The sensor data 
+can be processed for several real-time purposes, such as the
+steering of experiments between shots of the reactors, or
+the detection of catastrophic event precursors.
+This data is processed by applications structured as chains
+of tasks that perform data compression/decompression, data
+reduction/filtering, simulation, analysis, or visualization.  These
+applications are executed periodically throughout the lifespan of the
+operation of the reactor, with results needed by the end of each
+period.  Fig.~\ref{fig:use_case} depicts a three-task chain for the
+specific application configuration described in~\cite{9912722}.
+
+
+\begin{figure}
+\begin{center}
+\scalebox{0.8}{
+  \input{figures/use_case_figure.tex}
+}
+\end{center}
+\caption{Example three-task chain for a fusion energy science application~\cite{9912722}.}
+\label{fig:use_case}
+\end{figure}
+
+For fault-tolerance purposes, the authors in~\cite{10678736} propose using
+approximate computing techniques to trade off output quality for
+shorter execution times. While many such techniques are
+available~\cite{10.1145/3716845, 10.1145/3711683}, they focus on data size
+reduction using generic compression methods or methods specifically
+designed for scientific datasets~\cite{10.1145/3733104}.  Regardless, some
+or all of the tasks in the application come with different execution modes
+that correspond to, e.g., different compression factors, different data
+refactoring options, and different precision levels.  The above use case
+provides the motivation for the formulation of the scheduling problem in
+the next section.
+
+
+
+
+
+
+% =========================================================
+% 
+% See highlights and speech bubbles in the PDFs
+% 
+% - Error-Controlled Lossy Compression...: BigData18-SZ2.0.pdf
+% 	- A paper on lossy stuff for science (cited by paper below)
+% 	- May have some data to get some actual values...
+% 
+% - RAPIDS: ...  (3588195.3592983.pdf):
+% 	TLDR:A good ref and source of refs about approximate computing in science.
+%              It's basically trying to pick good option for data resilience
+% 
+% 	- Paragraph/refs about why lossless is not sufficiently scalable
+% 	- Paragraph/ref about lossy stiuff and why its good for science
+% 	- Paragraph/ref about data refactoring: which is what they use
+% 	- Fault-tolerance:
+% 		- how to pick data encoding (erasure + multi-level
+% 		  refactoring) to maximize fidelity and minimize overhead
+% 		  given the probability of losing a storage system
+% 
+% - Hybrid Analysis...: Hybrid_Analysis.pdf
+% 	- Not sure it's relevant at all
+% 
+% - Towards Resilience Near Real-Time...: Suter_Towards.pdf
+%   - THE reference for "timely workflow execution". Two technniques:
+% 	- Replicas: nice but costly - Data reduction: faster i/O, faster
+% 	  computation 
+%         - PROBLEM: Mention a deadline in seconds! And there are faults?  
+%         - Mentions that algorithms could also be tweaked but say
+% 	  it's better to do data-reduction 
+%         - techniques:
+% 		- lossy or lossless compression - data reduction (see papers above) 
+%                 - perhaps decompress/reconstruct 
+% 	- Their problem:
+% 		- Deadline 
+%                 - Maximum number of failures  (They do R replicas to tolerate R failures) 
+%                 - Maximum resource budget
+% 	- We can say we consider a more general problem?
+% 

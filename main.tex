@@ -1,0 +1,112 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{mathtools}
+\usepackage{amsthm,amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{url}
+%\usepackage{todonotes}
+\usepackage[disable]{todonotes}
+\usepackage{paralist}
+\usepackage{hyperref}
+\usepackage{balance}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usetikzlibrary{positioning,arrows.meta,calc}
+
+\usepackage{xspace}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\newcommand{\HC}[2][inline]{\todo[color=blue!50,#1]{\sf \small\textbf{HC:} #2\normalsize}\xspace}
+\newcommand{\VP}[2][inline]{\todo[color=green!50,#1]{\sf \small\textbf{VP:} #2\normalsize}\xspace}
+\newcommand{\FS}[2][inline]{\todo[color=yellow!50,#1]{\sf \small\textbf{FS:} #2\normalsize}\xspace}
+\newcommand{\TODO}[2][inline]{\todo[color=red!30,#1]{\sf \small\textbf{TODO:} #2\normalsize}\xspace}
+\newcommand{\DONE}[2][inline]{\todo[color=green!30,#1]{\sf \small\textbf{DONE:} #2\normalsize}\xspace}
+
+\newcommand{\efail}{\ensuremath{e_{f}}\xspace}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\deltat}{\ensuremath{\delta}\xspace}
+\newcommand{\psuc}[1]{e^{-\lambda #1 \deltat}}
+\newcommand{\knapsack}{\textsc{Knapsack}\xspace}
+\newtheorem{proposition}{Proposition}
+
+\newcommand{\dynamic}{\textsc{Dyn}\xspace}
+\newcommand{\random}{\textsc{Rand}\xspace}
+\newcommand{\foresighted}{\textsc{Fs}\xspace}
+\newcommand{\nearsighted}{\textsc{Ns}\xspace}
+
+\newcommand{\errorlevel}{\textsc{E}\xspace}
+\newcommand{\probsuccess}{\textsc{P}\xspace}
+\newcommand{\ratio}{\textsc{R}\xspace}
+\newcommand{\expectederror}{\textsc{X}\xspace}
+
+\newcommand{\independent}{\textsc{Ind}\xspace}
+\newcommand{\dependent}{\textsc{Dep}\xspace}
+\newcommand{\aggressive}{\textsc{Agg}\xspace}
+\newcommand{\variant}{\textsc{Var}\xspace}
+\newcommand{\off}{\textsc{Off}\xspace}
+    
+\newcommand{\strategy}[3]{{#1}/{#2}/{#3}}
+    
+\begin{document}
+
+\title{Deadline-Constrained Scheduling of Multi-Mode Task Chains under Fail-Stop Failures}
+
+% Real-Time Scheduling of Chains of Multi-Mode Tasks To under Fail-Stop Failures}
+% Real-Time Scheduling of Chains of Approximate Computation Tasks in the Presence of Fail-Stop Errors
+% Real-Time Scheduling of Chains of Multi-Mode Tasks To Minimize Expected Output Error under Fail-Stop Failures
+% Real-Time Scheduling of Chains of Tasks with Multiple Execution Options to Minimize Expected Output Error under Fail-Stop Failures
+
+
+\author{
+%\IEEEauthorblockN{Victor Pagan\IEEEauthorrefmark{1},
+%Henri Casanova\IEEEauthorrefmark{2}}
+%\IEEEauthorblockA{Dept. of Information and Computer Sciences \\
+%     University of Hawai‘i at M\={a}noa, HI, U.S.A.\\
+%\IEEEauthorrefmark{1}vpagan@hawaii.edu,
+%\IEEEauthorrefmark{2}henric@hawaii.edu}
+%\and
+%\IEEEauthorblockN{Fr\'ed\'eric Suter}
+%\IEEEauthorblockA{Oak Ridge National Laboratory, TN, U.S.A\\
+%suterf@ornl.gov}
+}
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Fault tolerance, deadline-constrained scheduling, multi-mode task chains.
+\end{IEEEkeywords}
+
+\input{sec-introduction}
+
+\input{sec-usecase}
+
+\input{sec-problem}
+
+\input{sec-methodology}
+
+\input{sec-one-host}
+
+\input{sec-multi-host}
+
+\input{sec-related}
+
+\input{sec-conclusion}
+
+\balance
+\bibliographystyle{ieeetr}
+\bibliography{references.bib}
+
+\end{document}

@@ -1,0 +1,177 @@
+NOT IN SITU: raw data -> SIMULATION (XGC) -> simulated data -> REFACTORING (ADIOS/SZ3) -> refactored data -> ANALYSIS (Poincaré) -> plots 
+
+IN SITU: input -> SIMUL + REFACTOR + ANALYSIS -> output
+	- Quality could change at each step, but if a failure, rollback to the beginning
+	- Could be easily implemented in our framework: in the DP solution, replace i by 1 in the recursive call if failure. 
+	- Bandwidth B would then be RAM speed (faster than disk due to streaming)
+	
+ADIOS API allows for the IN SITU / NOT IN SITU transparently!
+
+
+
+* SIMULATION:
+	- Input size: tiny
+	- Output size: ~69 TB
+	- 100s per time step
+	- Error behavior: Likely change the granularity of the particle-in-cell thing?
+
+		Mode 1: FULL ACCURACY
+			t(x,y) = 100	 (100 s / time step, one time step?)
+			d(x,y) = 69000000000000  (69 GB)
+			e(x,y) = 1.0 * y (no error)
+
+		Mode 2: LOWER RES
+			t(x,y) = 50	(half the work?)
+                        d(x,y) = 34500000000000 (34.5GB)
+                        e(x,y) = 2.0 * y (double the error)
+
+	- Linear speedup (see XGC_strong_scaling.png plot sent by Eric, which I think I understand)
+		- efficiency = 0.25
+
+	
+
+* REFACTORING:
+	- Benchmark of SZ3 on fake data done by henri: see sz3_benchmark_results.txt
+		
+		Mode 1: DO NOTHING 
+
+		Mode 2 (error=10-2):
+        		d(x,y) = .000037787 * x
+        		t(x,y) = .00000000531475 * x
+        		e(x,y) = 1.01 * y
+		
+		Mode 3 (error=10-6):
+        		d(x,y) = .0008855895 * x
+        		t(x,y) = .00000000639575 * x
+        		e(x,y) = 1.000001 * y
+		
+		Mode 4 (error=10-14):
+        		d(x,y) = .415447322 * x
+        		t(x,y) = .00000001374475 * x
+        		e(x,y) = 1.00000000000001 * y
+
+	- Linear speedup, ADIOS does it in parallel with near-100% efficiency: 
+		- efficiency = 0.99
+
+
+* PROCESSING:  Poincaré
+	- Time: On par with simulation time-step: 100s  SHOULD DO 18s
+	- Output data: order of GBs
+	- Error: yes, the resolution is adjustable. Figure 3 is timing for
+	  different choices made. The example in Figure 7 would have fewer
+	  punctures to measure from if the resolution were reduced.
+	- https://www.osti.gov/servlets/purl/2406759
+	- Attempting a model (no error)
+		- From the paper: If input data = 69TB then time is 100ms and output is say 10GB
+		- Let's assume linear complexity in the data (quadratic? other?)
+			if input data = x then time is 100 * (x / 69TB) and output is 10 * (x / 69TB)
+			  t(x, y) = 0.00000000000144927536 * x
+			  d(x, y) = 0.000000000000144927536 * x
+
+		Mode 1: FULL RES
+			t(x, y) = 0.00000000000144927536 * x
+			d(x,y) = 0.000000000000144927536 * x 
+			e(x,y) = 1.0 * y
+
+		Mode 2: DEGRADED (half the time, half the data, twice the error)
+			t(x,y) = 0.00000000000072463768 * x
+			d(x,y) = 0.00000000000007246376 * x
+			e(x,y) = 2.0 * y
+		
+		Could total make up more modes
+		
+			   
+	- Parallelizable: easy, near-optimal efficiency
+		- Efficiency = 0.99
+
+
+
+============================================ ================================
+
+>The paper mentions three "analyses/visualizations" that can be performed
+> (poincar plots, heat load, and diffusion), and gives a description of the
+> algorithms used. What I have a hard time finding in the paper is, for any
+> of those (all would be great of course), some notion of the computational
+> complexity. That is, given the size of the input data, how long does the
+> computation take. These could be just measured times for different input
+> sizes, or some big-O complexity measure perhaps.
+
+The computational complexity of the heat load and diffusion analyses are
+low, where in this case by low I mean they take significantly less time to
+a complete than a simulation time step. The simulation time steps were ~
+100 seconds, and those calculations ~ 1 second (depending on whats
+counted). Thats part of whats in Figure 4: in the Calculation red and blue
+bars those are computation times.
+
+The heat load is using escaped particles (from the simulation volume) so
+thats a small fraction of the total number of them escaping per step,
+meaning the data size is relatively small - at least to begin with, but it
+grows over time, aggregating over escaped particles across time. I dont
+have exact numbers at my fingertips, but we worked in the limit where a
+single Summit node sufficed, and where about 1TB was the upper limit
+estimate for the kinds of simulations. The load gets rebalanced among
+multiple ranks, thats what the rebalance time is.
+
+The diffusion data uses a few quantities on a 3D mesh, where the mesh needs
+to fit into the memory of a single node. So, its up to 10s of GBs per
+simulation time step.
+
+The Poincare plots use similar sized data to the diffusion analysis are
+much more expensive than the other plots computational: using a single GPU,
+around 100s of seconds. There are times for that in Figure 3.
+
+
+> For these analyses/visualizations, given the input data size what is the
+> output data size? Or is the output so small it doesn't really matter?
+
+Apart from whats coming from the simulation, the head load and diffusion
+ones didnt generate appreciable extra output data. On the Poincar maps, it
+generates puncture tracks, which I think were GBs per time step. The plots
+are what the scientists actually look at though, which are just images, so
+those track files are debatably intermediaries.
+
+
+> For any of these analyses/visualizations, are there any options to
+> compute for less time and obtain lower-quality output? For instance,
+> running half the iteration would shorten the execution time by half, but
+> introduce error in the output while remaining useful.
+
+On the Poincar: yes, the resolution is adjustable. Figure 3 is timing for
+different choices made. The example in Figure 7 would have fewer punctures
+to measure from if the resolution were reduced.
+
+On the other analyses, there isnt really the option to do something like
+this. Its just determined by the simulation.
+
+
+> For any of these analyses/visualizations, when executed in parallel is
+> there any data about the parallel speedup or parallel efficiency achieved?
+> I see some weak scaling experiments in the paper, but have a hard time
+> inferring from these some parallel performance model. Perhaps they are all
+> very nicely parallel, if implemented correctly, and parallel efficiency is
+> always high?
+
+We didnt do any assessment of how well the analyses parallelized as such.
+The Poincare mapping was always single GPU each (though with multiple
+running concurrently to the simulation). And the others were always the
+same fixed number of MPI ranks/threads.
+
+
+> The paper mentions that the first step of the workflow can apply
+> compression/refactoring, which can introduce error (e.g., via lossy
+> compression). Is there any information about the effect of the
+> analyses/visualizations. That is, if an analyses is given data with error
+> e, then its output will have error e'? Perhaps e' is higher than e? I
+> realize this is a vague question, but because the notion of error is
+> application-specific I am not sure how to ask it in a more concrete manner.
+
+We didnt do any assessment of that; but as a group, were interested in that
+in lossy compression and errors in quantities of interest (QoIs) further
+downstream. e' would indeed have a different (possibly much larger) error. I
+dont know if any of these specific analyses are the best suited, since none
+of the data is much larger than about a TB max. But in general,
+collaborators (e.g. Qian Gong) have been looking into preserving conserved
+quantities and guaranteed bounds on QoIs.
+
+=======================================================================
+

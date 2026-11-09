@@ -1,0 +1,217 @@
+\section{Problem Statement}
+\label{sec:problem}
+
+\subsection{Application Model}
+\label{sec:problem-application}
+
+The application is a chain of $M{\geq}1$
+tasks. Each task $T_i$, $i{=}1, \ldots, M$, takes input data,
+performs a computation, and generates output data, as a three-step
+sequence. Each successful execution of $T_i$ produces output data,
+any of which may be used as input by an execution of $T_{i+1}$. 
+Data is always written to and read from stable
+storage.  An ``in-situ" execution in which the output data from a parent
+task remains in RAM and can be accessed by the child task without
+any I/O would simply amount to merging these two
+tasks into a single task.
+
+
+Error in application data is tolerated:  $T_i$ offers $K_i{\geq}1$
+execution modes for different trade-offs between
+execution time and output error. 
+$T_i$ takes $x{\in}\N$ bytes of input with an error level $y{\in}[1,
++\infty)$, where 1 denotes no error.  We define execution mode $j$ for
+$T_i$, $j{=}1,\ldots, K_i$, by three functions:
+\begin{itemize}
+\item $t^i_j(x,y)$: The compute time (not including I/O); 
+\item $d^i_j(x,y)$: The size in bytes of the output data; and 
+\item $e^i_j(x,y)$: The error level in the output data.  
+\end{itemize}
+\noindent
+In practice, these functions may be independent of some of
+their inputs (see the example in Table~\ref{tab:compression_example}).
+
+\begin{table}[hb!]
+    \caption{Example execution modes for a data compression task. $x$ is the input data size in bytes
+	 and $y$ is the input data error.}
+    \label{tab:compression_example}
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    Execution mode & $t(x, y)$ & $d(x,y)$ & $e(x,y)$\\
+    \hline
+    no compression & $0$ & $x$ & $y$\\
+    slow lossless compression & $2{+}10 x$ & $x/10$ & $y$\\
+    fast lossless compression & $1{+}5 x$  & $x/2$  & $y$\\
+    fast lossy compression    & $1{+}2 x$  & $x/20$ & $3y/2$\\
+    \hline
+    \end{tabular}
+    \end{center}
+\end{table}
+
+Error propagates through inter-task data dependencies and
+accumulates end-to-end.  Many previous works on the scheduling of
+real-time, approximate computing applications employ the ``monotone" model
+by which a task can reduce the error in its input data by performing
+additional computation~\cite{259428}.  The above model can account for this
+error reduction behavior by defining the $t$ and $e$ functions
+appropriately.  For the use cases that motivate this work, as that in
+Section~\ref{sec:use-case}, there is no possibility of error reduction
+(i.e., $e^i_j(x,y){\geq}y$).
+
+The execution of the application must complete by a deadline, $D{>}0$. The
+\emph{output error} is defined as the minimum error across the output data
+of all successful executions of $T_{M}$ (the last task).  If no 
+execution of $T_{M}$ has succeeded by the deadline, then the 
+output error is set to $\efail$, a user-defined value that quantifies
+the penalty for returning no usable output by the deadline. The value of
+$\efail$ is set to be larger than any achievable output error by a successful
+execution of $T_M$. 
+
+\subsection{Platform and Fault Model}
+\label{sec:problem-execution}
+
+The platform comprises $N$ homogeneous
+processing elements (PEs), that each can execute only one task at a time.
+A PE could be a single core that executes a sequential program,
+a multi-core host that executes a multi-threaded program, or a set of compute
+nodes that execute a parallel program.
+Each PE reads/writes task data on a parallel file system,
+with read bandwidth $B_r$ and write bandwidth $B_w$. In
+practice, PEs can experience contention when accessing the parallel
+file system concurrently. While contention is part of our simulation
+model (for experiments), our analytical model assumes no
+contention so that analytical developments remain tractable.
+
+Task executions on PEs experience fail-stop failures (failed task executions do not produce usable
+output data).  Each PE is subject to independent failures with 
+exponentially distributed inter-arrival times with 
+rate $\lambda$ ($\lambda{=}0$ corresponds to a failure-free system).  
+Exponentially distributed failures are commonplace in the fault-tolerance
+literature due to their memoryless property. Although failures are not
+necessarily memoryless in real-world settings, assuming exponentially
+distributed failures remains sensible in practice~\cite{8049007}. We assume
+a single rate $\lambda$ regardless of a task's execution mode.  Some works
+consider different failure rates for different execution modes~\cite{10.1145/2442087.2442094,10.1007/s11227-021-03764-x,10.1109/TC.2003.1183950}.  Considering different failure
+rates for different modes in this work would merely entail simple
+modifications to the recursive formulas presented in
+Section~\ref{sec:onehost:solution}.
+
+Following a failure, the affected PE cannot resume computing for $R{\geq}
+0$ seconds. This \emph{restart overhead} corresponds to acquiring a spare
+host (due to a hardware failure), rebooting the host (due to an OS
+crash), or simply restarting a task (due to a software bug).  As
+commonly done in the literature, we assume a single restart overhead and do
+not distinguish different types of failures. Here again, doing so would
+entail straightforward (if tedious) modifications to the recursive
+formulas presented in Section~\ref{sec:onehost:solution}.
+
+A key technique to handle fail-stop failures is rollback/recovery, by
+which a task is restarted if it fails~\cite{10.5555/2811302}.  A common
+question is that of whether and when a task should
+checkpoint its state to stable storage to avoid rolling back the entire
+computation when a failure occurs~\cite{BAUTISTAGOMEZ2024315}.  In this
+work checkpointing is built into the application because each task reads
+its input and saves its output to stable storage.  Our model can easily
+be extended to consider a task that implements its own checkpointing:
+replace the task by a chain of tasks, each of which corresponds to the
+execution between two checkpoints. All tasks in this chain, except the
+first, would read their input from stable storage only when restarted
+after a failure, which would require minor changes to the recursive
+formulas presented in Section~\ref{sec:onehost:solution}.  Besides
+rollback/recovery, another key technique is replication, by which backup
+tasks are executed on different PEs to increase the chances that at least
+one replica will succeed~\cite{10.5555/2811302}.  In this work, we 
+use both rollback/recovery and replication.
+
+%There are works that say "checkpoint more the closer to the deadline": we
+%don't do that. cite? (ref [68] in 3589950.pdf) Discuss in related work?
+%Future work? Ignore?
+
+
+\subsection{Scheduling Problem}
+\label{sec:problem-scheduling}
+
+We consider the problem of \emph{minimizing the expected output error} for
+a single invocation of the application, released at time zero and subject
+to an end-to-end deadline $D$.  As seen in our motivating use case in
+Section~\ref{sec:use-case}, the application is intended to be invoked
+periodically. But successive invocations do not overlap, no unfinished work
+carries over beyond a deadline, and all PEs are available at the beginning
+of each invocation.  Each invocation can thus be scheduled independently
+using the same strategy. In other words, only the deployment of the
+application is periodic, not its scheduling.
+
+The scheduling problem is offline because application and platform specifications 
+are known in advance.  But because
+failures are stochastic, a scheduling strategy should be
+adaptive and make decisions that account for execution events at runtime.
+Therefore, we consider scheduling strategies that are invoked at time zero
+and also in response to task completions, task failures, and PEs becoming
+available.  Scheduling decisions can consist of aborting current task executions
+(making PEs immediately available) or selecting which tasks to execute with
+which execution modes.  We define an \emph{optimal strategy} as one in
+which each decision minimizes the expected output error given the current
+state of the application execution and the time remaining until the
+deadline. The scheduling problem then is to determine an optimal
+strategy.
+
+
+
+\begin{proposition}
+\label{prop:np}
+The above scheduling problem is NP-hard, even for a one-PE, failure-free platform
+with zero I/O costs, two modes per task, and
+zero restart overhead.
+\end{proposition}
+
+\begin{proof}
+With no failures, the execution is non-stochastic. All scheduling decisions
+can be made at time zero and, with one PE, we can restrict ourselves to
+strategies that execute each task exactly once with one mode.  Let us
+prove the NP-completeness of the decision problem: does there exist a
+strategy that can achieve an output error of at most some threshold $\tau$?
+The problem is in NP because, given the list of the chosen execution modes,
+one can compute the overall execution time and output error in polynomial
+time.  We prove NP-completeness via a reduction from 0-1
+\knapsack~\cite{GareyJ79}.
+
+Consider an instance of 0-1 \knapsack with $m$ items, where item
+$i{=}1,\ldots,m$ has weight $w_i$ and value $v_i$. The knapsack capacity is
+$W$, and for $V{>}0$ we consider the problem of deciding whether a solution
+exists with total value ${\geq}V$.  We construct an instance
+of our scheduling decision problem as follows. We consider an $m$-task
+chain in which task $T_i$, $i{=}1,\ldots,m$ has two execution modes:
+(i)~\emph{fast}: execution time $t(x,y){=}1$, output size $d(x,y){=}0$, 
+and error $e(x,y){=}y{+}v_i$ (i.e., introduced additive error); and (ii)~\emph{slow}: execution
+	time $t(x,y){=}1{+}w_i$, output size $d(x,y){=}0$, and error
+function $e(x,y){=}y$ (i.e., no introduced error).
+We set the deadline to $D{=}m{+}W$, the size of the initial input to 0,
+and the error of the initial input to 1. 
+Let us define $\tau{=}1{+}V_{\Sigma}{-}V$, where
+$V_{\Sigma}{=}\sum_{i=1}^m v_i$.  We consider the problem of deciding whether
+there exists a strategy for which the chain's output error is
+${\leq}\tau$.  We define $e_f{=}2{+}V_{\Sigma}$, so that a chain execution
+that does not complete by the deadline leads to error strictly greater than
+$\tau$.  This construction is computable in polynomial time.
+
+Let $S$ be the set of tasks that are executed with their slow execution
+mode, as decided by the strategy. 
+The application execution finishes by deadline $D$ when:
+$$
+\sum_{i \notin S} 1 + \sum_{i \in S} (1 + w_i) \leq m + W\;,
+\text{i.e., when}
+\;\sum_{i \in S} w_i \leq W .
+$$
+The chain's output error is:
+$$
+1 + \sum_{i \notin S} v_i = 1 + V_{\Sigma} - \sum_{i \in S} v_i = \tau + V - \sum_{i \in S} v_i \;.
+$$
+Therefore, the chain's output error is ${\leq}\tau$ if and only if $\sum_{i
+\in S} v_i{\geq}V$.  In other words, the answer to the scheduling decision
+problem is yes if and only if the answer to the knapsack decision problem is yes,
+completing the reduction.
+\end{proof}
+
+
+

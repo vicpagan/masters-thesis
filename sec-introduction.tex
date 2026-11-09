@@ -1,0 +1,55 @@
+\section{Introduction}
+\label{sec:introduction}
+
+%\HC{Perhaps cite~\cite{10.1002_cpe.8019} as another example of a real-time workflow? Not sure}
+
+Executions on compute platforms are subject to hardware
+and software errors. An active area of research is application scheduling
+in the presence of failures in non-real-time~\cite{10.5555/2811302}
+or real-time~\cite{10.1145/3589950} settings, typically using
+rollback/recovery and/or computation replication techniques.  In this work, 
+we focus on deadline-constrained scientific computing applications, which
+are increasingly commonplace across the sciences (see a recent
+U.S. Department of Energy study~\cite{IRI-workflows}).
+
+In many domains, approximate computing techniques~\cite{10.1145/3716845}
+make it possible to implement application tasks with multiple \emph{execution
+modes}. Each mode corresponds to a trade-off between execution
+time and output error, where an erroneous output retains some utility.
+Trading off output quality for a
+shorter execution time provides an opportunity to meet real-time deadlines
+that would otherwise be missed, motivating the development of strategies
+for scheduling approximate computing applications in the presence of
+failures~\cite{10.1145/2442087.2442094, 10.1007/s11227-021-03764-x,
+259428, 10.1177/0037549709340729, 10.1109/TC.2003.1183950, 7570524}.
+
+
+In this work we consider an application structured as a chain of tasks,
+some of which have multiple modes of execution. The application executes on
+a platform comprised of one or more processing elements (PEs) and is
+subject to fail-stop failures.  Given an end-to-end deadline, the objective
+is to make scheduling decisions that minimize the expected error of the
+best final output produced by that deadline, assigning a user-defined penalty
+when no final output is produced.  Prior work~\cite{10678736}
+considers static replication and resource provisioning in this setting. 
+Instead, we consider dynamic scheduling decisions 
+that can employ replication, rollback/recovery,
+execution mode changes after failures, reuse of persistent intermediate
+outputs, and coordinated scheduling across PEs.  Specifically, we make the
+following contributions:
+\begin{compactitem}
+    \item We formulate the problem and show its NP-hardness;
+    \item For one-PE platforms we discretize time to develop a dynamic programming approach, together with a practical method for selecting the discretization resolution;
+    \item For multiple-PE platforms we propose heuristics, some of which build on our results for the one-PE case; and
+    \item We evaluate our scheduling strategies in simulation, both for a production workload from the field of fusion energy science and for a large set of synthetic workloads. 
+\end{compactitem}
+
+The rest of this paper is organized as follows. Section~\ref{sec:use-case}
+details a production use case that motivates our scheduling problem, which
+is formalized in Section~\ref{sec:problem}.  Section~\ref{sec:methodology}
+describes our experimental methodology. Sections~\ref{sec:onehost} and
+\ref{sec:multihost} present our approach and results for one-PE and
+multiple-PE platforms, respectively. 
+Section~\ref{sec:related} reviews related work.  Finally,
+Section~\ref{sec:conclusion} concludes with a brief summary of results and
+perspectives on future work.

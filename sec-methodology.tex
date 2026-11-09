@@ -1,0 +1,96 @@
+\section{Experimental Methodology}
+\label{sec:methodology}
+
+Our simulator, application workloads, simulation results, and results processing scripts are publicly available~\cite{HIDDEN_URL}.
+
+%are publicly available~\footnote{URL omitted for double-blind review.}.
+
+
+
+\subsection{Application Workloads}
+
+Some of our results are illustrated for the fusion
+science application in Fig.~\ref{fig:use_case}. Tasks
+$T_1$, $T_2$, and $T_3$ have four, four, and three execution modes, respectively,
+each described by affine $t$, $d$, and $e$ functions.  These particular
+execution modes and affine functions are based on results in~\cite{9912722}
+and on information provided to us by the authors.  
+%Although we have
+%used some best guesses for some coefficients in these functions, we
+%believe our specification to be representative of a practical use case.
+
+We also evaluate heuristics over a large set of synthetic application
+configurations.  A synthetic configuration is generated as follows. We
+randomly sample the number of tasks $M{\in}\{2,3,4,5\}$. For each task
+$T_i$ we randomly sample its number of modes $K_i{\in}\{2, 3, 4\}$. We then
+generate a first ``safe" ($s$) execution mode (fast, high error)
+and a last ``risky" ($r$) execution mode (slow, low error) as
+follows, omitting arguments on which a function does not depend:
+
+\begin{minipage}{0.39\columnwidth}
+\begin{itemize}[leftmargin=0pt, labelindent=0pt, labelsep=0.3em]
+\item $t^i_s{=}u_{50, 600}$
+\item $d^i_s{=}\lceil u_{10^{10}, 10^{12}} \rceil$
+\item $e^i_s(y){=}u_{3, 10} \cdot y$
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.55\columnwidth}
+\begin{itemize}[leftmargin=0pt, labelindent=0pt, labelsep=0.3em]
+	\item $t^i_r{=}u_{2 \cdot t^i_s , 6 \cdot t^i_s}$
+	\item $d^i_r{=}\lceil u_{0.01 \cdot d^i_s, 0.3 \cdot d^i_s} \rceil$
+	\item $e^i_r(y){=}u_{1, \min(0.6 \cdot e^i_s(1), e^i_s(1) - 0.5)} \cdot y$
+\end{itemize}
+\end{minipage}~\\
+
+\noindent
+where $u_{a,b}$ denotes a value sampled once from the uniform distribution 
+on $[a,b] \subset \mathbb{R}$.  Additional modes are generated between the safe and risky
+modes using linear equidistant interpolation. In practice, the $t$ and $d$
+functions are likely non-constant (as in our fusion science use
+case). However, using constant functions, especially in the input size,
+makes it straightforward to generate a broad range of configurations
+in which no execution mode is trivially dominated by another.
+
+The intervals for the uniform distribution are selected empirically
+to ensure that the application configurations are diverse enough that
+different scheduling algorithms can make a wide range of reasonable
+decisions.  For each generated application configuration we
+compute $p_s$, resp. $p_r$, the probability that the execution on a single
+PE succeeds by the deadline when using only safe, resp. risky, execution
+modes.  $p_s$ and $p_r$ are computed using dynamic programming (see
+Section~\ref{sec:onehost}) using the same $D$, $\lambda$, $R$, $B_r$, and
+$B_w$ values as that used in simulation.  To eliminate trivially easy or
+hard cases, we filter out configurations with $p_s{<}0.15$, $p_s{>}0.85$,
+or $p_r{<}0.01$.  The $D$ and $\lambda$ values merely establish a common
+time scale; failure behavior is driven by the overall application
+execution time relative to the deadline, $D$, and to the mean time between failures,
+$1/\lambda$.  Our synthetic configurations do not aim to model any
+specific workload. Instead, they define a set of scenarios with different
+relative execution-time, data-size, and error magnitudes,  over which
+different scheduling principles can be compared systematically.
+
+%\TODO{Perhaps (likely cannot due to space) add data to justify that the configurations are really diverse....}
+
+\subsection{Simulation Methodology}
+
+Our simulator builds on a simulation framework designed to model real-world
+software/hardware platforms, and in particular network and I/O operations,
+accurately.  Scheduling works in the literature, like this one, typically
+use an abstract model of I/O operations, where transfer time is simulated as
+the data volume divided by some nominal bottleneck bandwidth, to render
+analytical developments and algorithm design
+tractable~\cite{10.1145/2501654.2501664, 7965082}. Our simulator supports
+two I/O simulation modes.  Its ``model-consistent" mode enforces the above
+abstract model, and is used to validate our implementation. Its
+``realistic" mode uses realistic simulation models that account for
+protocol and contention effects.  Unless specified otherwise, simulation
+results are obtained with the realistic mode.  Each invocation of the
+simulator takes in a full specification of the scheduling problem, as well
+as a seed value for the random number generator used to inject failures
+into the execution.  For a given instance of the scheduling problem,
+simulation results are obtained for different seeds, i.e., different
+failure traces.
+
+Unless specified otherwise, analytical/simulation results are 
+for $D{=}10^4$, $\lambda{=}10^{-3}$, $R{=}0$, $B_r{=}$2 GB/s, and $B_w{=}$1 GB/s.
+

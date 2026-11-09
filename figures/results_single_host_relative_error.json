@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "source_csv": "/Users/henric/Home/PROJECTS/REDWOOD/REDWOOD/experiments/results/results_single_host.csv",
+  "algorithm_suffix": "__independent__off",
+  "confidence": 0.95,
+  "plot_type": "relative_errors",
+  "reference_algorithm": "dynamic",
+  "reference_label": "Dyn",
+  "statistic": "100 * (mean(comparison) / mean(reference) - 1)",
+  "units": "percent",
+  "confidence_interval_method": "paired_percentile_bootstrap",
+  "bootstrap_resamples": 20000,
+  "seed": 20260821,
+  "groups": {
+    "any": {
+      "filter": {
+        "e_fail_multiplier": [
+          2.0,
+          5.0
+        ]
+      },
+      "num_rows": 20000,
+      "results": [
+        {
+          "algorithm": "static_foresighted_expected_error",
+          "label": "FS-X",
+          "num_pairs": 20000,
+          "estimate_percent": 4.526097429703846,
+          "ci_lower_percent": 1.571683448766573,
+          "ci_upper_percent": 7.732980236654968
+        },
+        {
+          "algorithm": "static_foresighted_probability_success",
+          "label": "FS-P",
+          "num_pairs": 20000,
+          "estimate_percent": 21.051732820787826,
+          "ci_lower_percent": 16.689752089430975,
+          "ci_upper_percent": 26.458806441230575
+        },
+        {
+          "algorithm": "static_nearsighted_expected_error",
+          "label": "NS-X",
+          "num_pairs": 20000,
+          "estimate_percent": 38.08646037841079,
+          "ci_lower_percent": 25.74765646167469,
+          "ci_upper_percent": 53.760485534029854
+        },
+        {
+          "algorithm": "static_nearsighted_probability_success",
+          "label": "NS-P",
+          "num_pairs": 20000,
+          "estimate_percent": 78.56144092212615,
+          "ci_lower_percent": 61.73725669462663,
+          "ci_upper_percent": 99.4897236648887
+        },
+        {
+          "algorithm": "static_nearsighted_success_error_ratio",
+          "label": "NS-R",
+          "num_pairs": 20000,
+          "estimate_percent": 101.31059184209117,
+          "ci_lower_percent": 78.25105954427286,
+          "ci_upper_percent": 129.44684663103868
+        },
+        {
+          "algorithm": "static_foresighted_success_error_ratio",
+          "label": "FS-R",
+          "num_pairs": 20000,
+          "estimate_percent": 103.50748876189932,
+          "ci_lower_percent": 80.17985607435459,
+          "ci_upper_percent": 132.10837389410162
+        },
+        {
+          "algorithm": "static_nearsighted_error_level",
+          "label": "NS-E",
+          "num_pairs": 20000,
+          "estimate_percent": 130.52206558737174,
+          "ci_lower_percent": 103.79569880451795,
+          "ci_upper_percent": 163.6408011124802
+        },
+        {
+          "algorithm": "static_foresighted_error_level",
+          "label": "FS-E",
+          "num_pairs": 20000,
+          "estimate_percent": 133.7591258916809,
+          "ci_lower_percent": 106.52876082633756,
+          "ci_upper_percent": 167.56473999712352
+        },
+        {
+          "algorithm": "random",
+          "label": "Rand",
+          "num_pairs": 20000,
+          "estimate_percent": 167.17293812840936,
+          "ci_lower_percent": 136.16201109607672,
+          "ci_upper_percent": 206.32549107049783
+        }
+      ]
+    }
+  }
+}

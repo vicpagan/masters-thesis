@@ -1,0 +1,22 @@
+Scheduling real-time applications in the presence of failures is
+challenging.  In many domains, some level of output error is tolerable:
+application tasks offer different execution modes, where modes with longer
+execution times lead to lower error.  This provides an opportunity for
+meeting real-time constraints in the presence of failures by trading off
+higher error for faster task executions.  In this context, we study the
+problem of scheduling a chain of multi-mode tasks onto a failure-prone
+platform, allowing for replication, rollback/recovery, adaptive mode
+changes after failures, reuse of persistent intermediate outputs, and
+coordination across multiple processing elements. The objective is to
+minimize the expected error in the final output produced by a deadline,
+with a penalty if no output is produced.  For the case in which the
+platform comprises a single processing element, we develop a dynamic
+program that computes optimal scheduling decisions for the time-discretized
+problem under the assumption that a task is never re-executed after it has
+successfully completed once.  We also show how to select an appropriate
+discretization resolution in practice.  When the platform comprises
+multiple processing elements, we propose various heuristics, several of
+which build on the above dynamic program.  We demonstrate and/or evaluate
+our dynamic programming approach and heuristics via simulated executions
+for a fusion energy application derived from a production use case and for
+a large set of synthetic workloads.

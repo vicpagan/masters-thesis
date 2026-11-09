@@ -1,0 +1,77 @@
+\section{Related Work}
+\label{sec:related}
+
+%Common techniques for executing applications in the presence of failures
+%include replication, checkpointing, and static or dynamic scheduling and
+%resource provisioning.  In non-real-time settings, the objective is to
+%optimize some performance metric~\cite{10.5555/2811302}.  In real-time
+%settings, the objective is to optimize some timeliness metric given
+%job/task deadlines~\cite{10.1145/3589950}.
+
+%Examples in real-time
+%settings, besides our motivating use case in Section~\ref{sec:use-case},
+%include Adaptive Bitrate Streaming~\cite{7976298}, in which video
+%resolution can be degraded to meet quality-of-service constraints, or the
+%use of different precision levels in neural networks to meet
+%deadlines~\cite{JIANG2020101775}.
+
+This work targets scenarios in which an application task can implement
+different trade-offs between execution time and output error, which is
+often termed \emph{approximate computing}~\cite{7348659} and can be
+achieved with hardware or software
+techniques~\cite{10.1145/3716845,10.1145/3711683}.  Leveraging approximate
+computing for real-time applications is a natural idea~\cite{259428,
+Leung1995}, which has been explored for various workload and application
+models~\cite{10.1002/cpe.4208, 10.1016/j.future.2019.02.019,
+STAVRINIDES20101004, 585499, 10.1007/978-3-642-21713-5_20} and remains an
+active area of research~\cite{10.1145/3589950}.  The scheduling of
+real-time, approximate computing applications, for both aperiodic and
+periodic scenarios, has been studied for transient errors, where the
+probability of error depends on DVFS levels~\cite{10.1145/2442087.2442094,
+10.1007/s11227-021-03764-x}, and for fail-stop failures~\cite{259428,
+10.1177/0037549709340729, 10.1109/TC.2003.1183950, 7570524}.
+
+
+A popular approximate computing model is the \emph{monotone}
+model~\cite{259428}: each task consists of a mandatory portion that can
+produce output with some error, followed by an optional portion that
+incrementally reduces the error and can be interrupted at any time.  This
+monotone model is not applicable to the use case that motivates this work,
+as the level of approximation of a task must be decided at the onset of its
+(re)execution, at which point its execution time and output error level are
+fixed, and no usable intermediate output is produced.  Instead of the
+monotone model, some works consider that each task comes with a primary
+mode (costly, low-error) and an alternate mode (cheap, high-error).  For
+instance, the authors in~\cite{10.1109/TC.2003.1183950} propose an approach
+in which the primary is always scheduled before the alternate.  In this
+work, we consider tasks that can have arbitrary numbers of execution modes.
+A natural context in which tasks provide multiple execution modes is when
+different DVFS levels lead to different trade-offs between a task's
+execution time and the probability that its output is erroneous.
+In~\cite{10.1145/2442087.2442094}, the authors focus on periodic tasks with
+individual deadlines and seek to minimize energy consumption.
+In~\cite{10.1007/s11227-021-03764-x}, the authors have a similar objective
+but, like in this work, consider an application with an end-to-end
+deadline. In both works, the objective is to minimize energy
+consumption while guaranteeing a particular reliability, i.e., bounding the
+probability that at least one task output is erroneous.  In contrast,
+motivated by the use case in Section~\ref{sec:use-case}, in this work some
+level of application output error is tolerable and we aim to minimize the
+expected error.
+
+
+The work most closely related to ours is~\cite{10678736}. It considers
+deadline-constrained task chains subject to fail-stop failures, where task
+execution modes offer different trade-offs between execution time and
+output error.  The authors formulate a static resource provisioning
+problem: determine optimal choices for the number of application replicas
+to execute concurrently, the execution modes for each replica, and the
+number of compute resources allocated to each replica, for a given resource
+budget.  In contrast, we consider adaptive scheduling decisions throughout
+execution, including replication, rollback/recovery, mode changes after
+observed failures, reuse of persistent intermediate outputs, and
+coordination across PEs. These additional mechanisms require reasoning
+about the dynamic execution state rather than making a one-time resource
+provisioning decision. To the best of our knowledge, the adaptive
+scheduling problem in this work has not been studied previously.
+

@@ -1,0 +1,32 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We have studied the problem of scheduling a chain of multi-mode tasks by an
+end-to-end deadline in the presence of fail-stop failures. Even a
+restricted version of this problem is NP-hard. In the one-PE case, 
+dynamic programming makes it possible to precompute optimal scheduling
+decisions for a time-discretized version of the problem under a
+first-output execution policy. In the multi-PE case, we have proposed
+several heuristics.  Using these heuristics in conjunction with temporal
+redundancy and reactive rescheduling schemes yields a set of scheduling
+strategies.  Simulation results over a large set of application
+configurations show which scheduling strategy design choices are sound,
+yielding a small set of top-performing strategies with different relative
+effectiveness at different platform scales.
+
+
+Our work can be extended in several ways.  Our temporal redundancy approach
+could be extended to re-execute the application from a task $T_i$, $i > 1$,
+and/or could be integrated as part of the dynamic program (at the cost of a
+much larger state space).  Our experimental results provide a basis upon
+which to develop more effective heuristics in the future, e.g., ones that
+combine our dynamic programming approach with our greedy heuristics.
+Another future work direction is to consider in-situ executions in which
+consecutive tasks are merged (to avoid I/O).  Previously proposed task
+merging strategies for the purpose of makespan minimization~\cite{6264675}
+may be adapted to expected error minimization for multi-mode tasks. In the
+multi-PE case, when tasks are parallel programs, an interesting problem is
+to find a compromise between having each task use all PEs (as in
+Section~\ref{sec:data_parallel}) and each task use a single PE (as in
+Section~\ref{sec:multihost}).  Finally, a broader future direction is to go
+beyond chains and consider more general task graphs.

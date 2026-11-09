@@ -1,0 +1,31 @@
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, thick, minimum width=2cm, minimum height=1cm, align=center},
+    arrow/.style={-{Stealth[length=2mm]}, thick}
+]
+
+% Nodes
+	\node[box, align=center] (task1) {$T_1$: Simulation\\with XGC~\cite{10.1063/1.5020792}};
+	\node[box, right=of task1, align=center] (task2) {$T_2$: Data Refactoring\\with ADIOS~\cite{GODOY2020100561}};
+	\node[box, below=0.7cm of task2, align=center] (task3) {$T_3$: Analysis/Visualization\\with VTK-m~\cite{7466740}};
+
+% Stick figure user
+\node[left=2cm of task3, xshift=0.3cm] (user-anchor) {};
+\node[left=2cm of task3, yshift=0.4cm] (user) {};
+\draw[thick] (user) circle (0.20cm); % head
+\draw[thick] (user) ++(0,-0.25) -- ++(0,-0.30); % body
+\draw[thick] (user) ++(0,-0.55) -- ++(-0.3,-0.35); % left leg
+\draw[thick] (user) ++(0,-0.55) -- ++(0.3,-0.35); % right leg
+\draw[thick] (user) ++(0,-0.35) -- ++(-0.2,-0.25); % left arm
+\draw[thick] (user) ++(0,-0.35) -- ++(0.2,-0.25); % right arm
+
+% Incoming arrow to Task1
+\coordinate[left=1.5cm of task1] (input);
+\draw[arrow] (input) -- node[above, align=center] {input\\data} (task1);
+
+% Arrows with labels
+\draw[arrow] (task1) -- node[above, align=center] {simulation\\results} (task2);
+\draw[arrow] ($(task2)+(-1cm,-0.5cm)$) -- node[right, align=center, yshift=+0.1cm] {reduced results} ($(task3)+(-1cm,+0.5cm)$);
+\draw[arrow] (task3) -- node[above, align=center] {Poincar\'e\\maps} (user-anchor);
+
+\end{tikzpicture}

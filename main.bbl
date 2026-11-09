@@ -1,0 +1,102 @@
+\begin{thebibliography}{10}
+
+\bibitem{10.5555/2811302}
+T.~Herault and Y.~Robert, eds., {\em {Fault-Tolerance Techniques for High-Performance Computing}}.
+\newblock Springer, 1st~ed., 2015.
+
+\bibitem{10.1145/3589950}
+F.~Reghenzani, Z.~Guo, and W.~Fornaciari, ``{Software Fault Tolerance in Real-Time Systems: Identifying the Future Research Questions},'' {\em ACM Comput. Surv.}, vol.~55, no.~14s, 2023.
+
+\bibitem{IRI-workflows}
+E.~Dart, J.~Zurawski, C.~Hawk, B.~L. Brown, and I.~Monga, ``{ESnet Requirements Review Program Through the IRI Lens: A Meta-Analysis of Workflow Patterns Across DOE Office of Science Programs},'' tech. rep., US Department of Energy, 2023.
+
+\bibitem{10.1145/3716845}
+V.~Leon, M.~A. Hanif, G.~Armeniakos, X.~Jiao, M.~Shafique, K.~Pekmestzi, and D.~Soudris, ``{Approximate Computing Survey, Part I: Terminology and Software \& Hardware Approximation Techniques},'' {\em ACM Comput. Surv.}, vol.~57, no.~7, 2025.
+
+\bibitem{10.1145/2442087.2442094}
+B.~Zhao, H.~Aydin, and D.~Zhu, ``Shared recovery for energy efficiency and reliability enhancements in real-time applications with precedence constraints,'' {\em ACM Trans. on Design Automation of Electronic Systems}, vol.~18, no.~2, 2013.
+
+\bibitem{10.1007/s11227-021-03764-x}
+Z.~Deng, D.~Cao, H.~Shen, Z.~Yan, and H.~Huang, ``Reliability-aware task scheduling for energy efficiency on heterogeneous multiprocessor systems,'' {\em J. Supercomput.}, vol.~77, no.~10, p.~11643–11681, 2021.
+
+\bibitem{259428}
+J.~Liu, W.-K. Shih, K.-J. Lin, R.~Bettati, and J.-Y. Chung, ``{Imprecise computations},'' {\em Proc. of the IEEE}, vol.~82, no.~1, pp.~83--94, 1994.
+
+\bibitem{10.1177/0037549709340729}
+G.~L. Stavrinides and H.~D. Karatza, ``{Fault-tolerant Gang Scheduling in Distributed Real-time Systems Utilizing Imprecise Computations},'' {\em SIMULATION}, vol.~85, no.~8, pp.~525--536, 2009.
+
+\bibitem{10.1109/TC.2003.1183950}
+C.-C. Han, K.~Shin, and J.~Wu, ``A fault-tolerant scheduling algorithm for real-time periodic tasks with possible software faults,'' {\em IEEE Trans. on Computers}, vol.~52, no.~3, pp.~362--372, 2003.
+
+\bibitem{7570524}
+G.~L. Stavrinides and H.~D. Karatza, ``{Scheduling real-time parallel applications in SaaS clouds in the presence of transient software failures},'' in {\em Proc. Intl. Symposium on Performance Evaluation of Computer and Telecommunication Systems}, pp.~1--8, 2016.
+
+\bibitem{10678736}
+F.~Suter, N.~Podhorszki, and S.~Klasky, ``{Towards Resilient Near Real-Time Analysis Workflows in Fusion Energy Science},'' in {\em Proc. 20th IEEE Intl. Conf. on e-Science}, pp.~1--6, 2024.
+
+\bibitem{9912722}
+E.~Suchyta, J.~Y. Choi, S.-H. Ku, D.~Pugmire, A.~Gainaru, K.~Huck, R.~Kube, A.~Scheinberg, F.~Suter, C.~Chang, T.~Munson, N.~Podhorszki, and S.~Klasky, ``{Hybrid Analysis of Fusion Data for Online Understanding of Complex Science on Extreme Scale Computers},'' in {\em Proc. IEEE Intl. Conf. on Cluster Computing}, pp.~218--229, 2022.
+
+\bibitem{10.1063/1.5020792}
+S.~Ku, C.~S. Chang, R.~Hager, R.~M. Churchill, G.~R. Tynan, I.~Cziegler, M.~Greenwald, J.~Hughes, S.~E. Parker, M.~F. Adams, E.~D'Azevedo, and P.~Worley, ``{A fast low-to-high confinement mode bifurcation dynamics in the boundary-plasma gyrokinetic code XGC1},'' {\em Physics of Plasmas}, vol.~25, no.~5, p.~056107, 2018.
+
+\bibitem{GODOY2020100561}
+W.~F. Godoy {\em et~al.}, ``{ADIOS 2: The Adaptable Input Output System. A framework for high-performance data management},'' {\em SoftwareX}, vol.~12, p.~100561, 2020.
+
+\bibitem{7466740}
+K.~Moreland, C.~Sewell, W.~Usher, L.-t. Lo, J.~Meredith, D.~Pugmire, J.~Kress, H.~Schroots, K.-L. Ma, H.~Childs, M.~Larsen, C.-M. Chen, R.~Maynard, and B.~Geveci, ``{VTK-m: Accelerating the Visualization Toolkit for Massively Threaded Architectures},'' {\em IEEE Computer Graphics and Applications}, vol.~36, no.~3, pp.~48--58, 2016.
+
+\bibitem{10.1145/3711683}
+V.~Leon, M.~A. Hanif, G.~Armeniakos, X.~Jiao, M.~Shafique, K.~Pekmestzi, and D.~Soudris, ``{Approximate Computing Survey, Part II: Application-Specific \& Architectural Approximation Techniques and Applications},'' {\em ACM Comput. Surv.}, vol.~57, no.~7, 2025.
+
+\bibitem{10.1145/3733104}
+S.~Di, J.~Liu, K.~Zhao, X.~Liang, R.~Underwood, Z.~Zhang, M.~Shah, Y.~Huang, J.~Huang, X.~Yu, C.~Ren, H.~Guo, G.~Wilkins, D.~Tao, J.~Tian, S.~Jin, Z.~Jian, D.~Wang, M.~H. Rahman, B.~Zhang, S.~Song, J.~Calhoun, G.~Li, K.~Yoshii, K.~Alharthi, and F.~Cappello, ``{A Survey on Error-Bounded Lossy Compression for Scientific Datasets},'' {\em ACM Comput. Surv.}, vol.~57, no.~11, 2025.
+
+\bibitem{8049007}
+G.~Aupy, Y.~Robert, and F.~Vivien, ``{Assuming Failure Independence: Are We Right to be Wrong?},'' in {\em Proc. IEEE Intl. Conf. on Cluster Computing}, pp.~709--716, 2017.
+
+\bibitem{BAUTISTAGOMEZ2024315}
+L.~Bautista-Gomez, A.~Benoit, S.~Di, T.~Herault, Y.~Robert, and H.~Sun, ``{A survey on checkpointing strategies: Should we always checkpoint à la Young/Daly?},'' {\em Future Gener. Comput. Syst.}, vol.~161, pp.~315--328, 2024.
+
+\bibitem{GareyJ79}
+M.~R. Garey and D.~S. Johnson, {\em {Computers and Intractability: {A} Guide to the Theory of NP-Completeness}}.
+\newblock W. H. Freeman, 1979.
+
+\bibitem{HIDDEN_URL}
+``{Omitted for double-blind review},'' 2026.
+
+\bibitem{10.1145/2501654.2501664}
+A.~Benoit, {\"U}.~V. {\c C}ataly{\"u}rek, Y.~Robert, and E.~Saule, ``{A survey of pipelined workflow scheduling: Models and algorithms},'' {\em ACM Comput. Surv.}, vol.~45, no.~4, 2013.
+
+\bibitem{7965082}
+H.~Croubois and E.~Caron, ``{Communication Aware task Placement for Workflow Scheduling on DaaS-Based Cloud},'' in {\em Proc. IEEE Intl. Parallel and Distributed Processing Symposium Workshops}, pp.~452--461, 2017.
+
+\bibitem{OMWONYLEE2020124194}
+J.~O. Omwonylee and X.~Yang, ``{General large deviations of longest gaps in homogeneous Poisson processes},'' {\em Journal of Mathematical Analysis and Applications}, vol.~489, no.~2, p.~124194, 2020.
+
+\bibitem{7348659}
+Q.~Xu, T.~Mytkowicz, and N.~S. Kim, ``{Approximate Computing: A Survey},'' {\em IEEE Design \& Test}, vol.~33, no.~1, pp.~8--22, 2016.
+
+\bibitem{Leung1995}
+J.~Y.-T. Leung, {\em {A Survey of Scheduling Results for Imprecise Computation Tasks}}, vol.~318 of {\em The Springer International Series in Engineering and Computer Science}, ch.~3.
+\newblock Springer, 1995.
+
+\bibitem{10.1002/cpe.4208}
+G.~L. Stavrinides and H.~D. Karatza, ``{Scheduling real-time bag-of-tasks applications with approximate computations in SaaS clouds},'' {\em Concurrency Computat.: Pract. Exper.}, vol.~32, no.~1, 2020.
+
+\bibitem{10.1016/j.future.2019.02.019}
+G.~L. Stavrinides and H.~D. Karatza, ``{An energy-efficient, QoS-aware and cost-effective scheduling approach for real-time workflow applications in cloud computing systems utilizing DVFS and approximate computations},'' {\em Future Gener. Comput. Syst.}, vol.~96, no.~C, p.~216–226, 2019.
+
+\bibitem{STAVRINIDES20101004}
+G.~L. Stavrinides and H.~D. Karatza, ``Scheduling multiple task graphs with end-to-end deadlines in distributed real-time systems utilizing imprecise computations,'' {\em Journal of Systems and Software}, vol.~83, no.~6, pp.~1004--1014, 2010.
+
+\bibitem{585499}
+W.-C. Feng and J.-S. Liu, ``Algorithms for scheduling real-time tasks with input error and end-to-end deadlines,'' {\em IEEE Trans. on Software Engineering}, vol.~23, no.~2, pp.~93--106, 1997.
+
+\bibitem{10.1007/978-3-642-21713-5_20}
+G.~L. Stavrinides and H.~D. Karatza, ``{The Impact of Input Error on the Scheduling of Task Graphs with Imprecise Computations in Heterogeneous Distributed Real-Time Systems},'' in {\em Proc. 18th Intl. Conf. on Analytical and Stochastic Modeling Techniques and Applications}, pp.~273--287, 2011.
+
+\bibitem{6264675}
+Y.~Robert, F.~Vivien, and D.~Zaidouni, ``{On the complexity of scheduling checkpoints for computational workflows},'' in {\em Proc. IEEE/IFIP Intl. Conf. on Dependable Systems and Networks Workshops}, pp.~1--6, 2012.
+
+\end{thebibliography}
