@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  9 NOV 2026 13:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  9 NOV 2026 14:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -666,18 +666,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--44
  []
 
 [3]) (./sec-one-host.tex [4]
-<./figures/delta_t_results.pdf, id=216, 990.77592pt x 484.24539pt>
+<./figures/delta_t_results.pdf, id=228, 990.77592pt x 484.24539pt>
 File: ./figures/delta_t_results.pdf Graphic file (type pdf)
 <use ./figures/delta_t_results.pdf>
 Package pdftex.def Info: ./figures/delta_t_results.pdf  used on input line 155.
 (pdftex.def)             Requested size: 252.0pt x 123.15952pt.
  [5 <./figures/delta_t_results.pdf>]
-<./figures/data_parallel_results.pdf, id=275, 990.51244pt x 483.45042pt>
+<./figures/data_parallel_results.pdf, id=287, 990.51244pt x 483.45042pt>
 File: ./figures/data_parallel_results.pdf Graphic file (type pdf)
 <use ./figures/data_parallel_results.pdf>
 Package pdftex.def Info: ./figures/data_parallel_results.pdf  used on input line 214.
 (pdftex.def)             Requested size: 252.0pt x 122.99422pt.
-<./figures/relative_error_vs_dynamic.pdf, id=282, 715.71577pt x 350.6563pt>
+<./figures/relative_error_vs_dynamic.pdf, id=294, 715.71577pt x 350.6563pt>
 File: ./figures/relative_error_vs_dynamic.pdf Graphic file (type pdf)
 <use ./figures/relative_error_vs_dynamic.pdf>
 Package pdftex.def Info: ./figures/relative_error_vs_dynamic.pdf  used on input line 299.
@@ -688,17 +688,26 @@ LaTeX Font Warning: Font shape `OT1/ptm/m/scit' undefined
 (Font)              using `OT1/ptm/m/sc' instead on input line 213.
 
 [8]
-<./figures/multi_host_ranking.pdf, id=405, 243.55899pt x 167.42502pt>
+<./figures/multi_host_ranking.pdf, id=417, 243.55899pt x 167.42502pt>
 File: ./figures/multi_host_ranking.pdf Graphic file (type pdf)
 <use ./figures/multi_host_ranking.pdf>
 Package pdftex.def Info: ./figures/multi_host_ranking.pdf  used on input line 264.
 (pdftex.def)             Requested size: 252.0pt x 173.23396pt.
-) (./sec-related.tex) (./sec-conclusion.tex [9 <./figures/multi_host_ranking.pdf>]) (./main.bbl
+) (./sec-mdp.tex
+Underfull \hbox (badness 10000) in paragraph at lines 45--47
+\OT1/ptm/m/n/10 The op-ti-mal ex-pected er-ror for the ap-pli-ca-tion is
+ []
+
+) (./sec-related.tex [9 <./figures/multi_host_ranking.pdf>]) (./sec-conclusion.tex) (./main.bbl
 Underfull \hbox (badness 2042) in paragraph at lines 14--15
 []\OT1/ptm/m/n/8 V. Leon, M. A. Hanif, G. Ar-me-ni-akos, X. Jiao, M. Shafique,
  []
 
 
+Package balance Warning: You have called \balance in second column
+(balance)                Columns might not be balanced.
+
+[10]
 Underfull \hbox (badness 2042) in paragraph at lines 50--51
 []\OT1/ptm/m/n/8 V. Leon, M. A. Hanif, G. Ar-me-ni-akos, X. Jiao, M. Shafique,
  []
@@ -715,30 +724,27 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-
-Overfull \vbox (13.79997pt too high) has occurred while \output is active []
-
- [10] (./main.aux)
+[11] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6654EECBB0B076AE0C9722F1E611D18E;4101.
+(rerunfilecheck)             Checksum: F9A47CD84B4331E04251028C2246A583;4710.
  ) 
 Here is how much of TeX's memory you used:
- 23736 strings out of 467525
- 444169 string characters out of 5418982
- 868594 words of memory out of 5000000
- 52147 multiletter control sequences out of 15000+600000
+ 23756 strings out of 467525
+ 444487 string characters out of 5418982
+ 852095 words of memory out of 5000000
+ 52160 multiletter control sequences out of 15000+600000
  668224 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,11n,108p,716b,791s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,13n,108p,716b,791s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (10 pages, 311093 bytes).
+Output written on main.pdf (11 pages, 317231 bytes).
 PDF statistics:
- 587 PDF objects out of 1000 (max. 8388607)
- 366 compressed objects within 4 object streams
- 76 named destinations out of 1000 (max. 500000)
- 233 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 604 PDF objects out of 1000 (max. 8388607)
+ 382 compressed objects within 4 object streams
+ 80 named destinations out of 1000 (max. 500000)
+ 257 words of extra memory for PDF output out of 10000 (max. 10000000)
 

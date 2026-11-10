@@ -1,0 +1,58 @@
+\section{Optimal Strategies as a Markov Decision Process}
+\label{sec:mdp}
+
+Rewriting the recursion as a MDP so it can take into account rescheduling options
+including for things like temporal redundancy and reactive rescheduling.
+
+\subsection{One-PE Formulation}
+\label{sec:mdp:onepe}
+
+\noindent{\textbf {State --}}
+A state is a pair $(C, n)$, where $n$ is the number of time steps until
+the deadline and $C$ is the set of all results reached so far. An element
+$(i, x, y) \in C$ denotes an input of $x$ bytes and error level $y$ available
+as input to task $T_i$.
+Initially $C = \{(1, x_0, y_0)\}$ and $n = H$.  The output error so far is:
+$$
+y_{\min} (C) = \min\big(\efail, \min_{(M+1, x, y) \in C} y\big).
+$$
+
+\noindent{\textbf {Actions --}}
+At time zero and after each success or failure, execute any task $T_i$ on
+any of its available inputs with any execution mode $j$, given that it
+can complete by the deadline and would produce a new output:
+\begin{multline*}
+A(C, n) = \{ (i, x, y, j) : (i, x, y) \in C, i \leq M, m^i_j \leq n,\\
+(i+1, d^i_j(x,y), e^i_j(x,y)) \notin C \}.
+\end{multline*}
+
+\noindent{\bf Transitions --}
+For action $(i, x, y, j)$:
+\begin{compactitem}
+\item \textbf{success, with probability $\psuc{m^i_j}$} \\
+$(C \cup \{(i+1, d^i_j(x,y), e^i_j(x,y))\}, n - m^i_j)$
+\item \textbf{failure during time step $u$, with probability $p_u$}\\ 
+$(C, \max(0, n - u - 1 - \lceil R/\deltat \rceil))$.
+\end{compactitem}
+
+\noindent{\textbf {Optimal expected error --}}
+Let $E(C,n)$ be the optimal expected error from state $(C,n)$.  If
+$A(C,n) = \emptyset$ then $E(C,n) = y_{\min}(C)$. Otherwise:
+\begin{multline*}
+E(C, n) = \min_{(i,x,y,j) \in A(C,n)} \big[\\
+\psuc{m^i_j} \times E(C \cup \{(i+1, d^i_j(x,y), e^i_j(x,y))\}, n - m^i_j) + \\
+ \sum_{u=0}^{m^i_j - 1} p_u E(C, \max(0, n - u - 1 - \lceil R/\deltat \rceil)) \big].
+\end{multline*}
+The optimal expected error for the application is $E(\{(1, x_0, y_0)\}, H)$.
+
+\subsection{Multi-PE Formulation}
+\label{sec:mdp:multipe}
+
+\noindent{\textbf {State --}}
+A state is a triple $(C, n, \sigma)$. Set $C$ is shared by all PEs, and
+$\sigma = (\sigma_1, \ldots, \sigma_N)$ gives the possible statuses of each PE:
+\begin{compactitem}
+\item available
+\item executing task $T_i$ on input $(x,y)$ with mode $j$
+\item restarting after a failure
+\end{compactitem}
