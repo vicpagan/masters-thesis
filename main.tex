@@ -1,6 +1,9 @@
-\documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%% UH Manoa thesis class (https://github.com/rbrewer/latex-uhm-thesis).
+%% uhthesis.cls sits next to this file. Class defaults: 11pt, letter paper,
+%% one-sided, 1.5 spacing, master's thesis. Add "draft" for single-spaced
+%% drafts that print today's date and \versionnum on the title page.
+\documentclass[11pt]{uhthesis}
+
 \usepackage{cite}
 \usepackage{mathtools}
 \usepackage{amsthm,amsmath,amssymb,amsfonts}
@@ -12,15 +15,12 @@
 \usepackage[disable]{todonotes}
 \usepackage{paralist}
 \usepackage{hyperref}
-\usepackage{balance}
 \usepackage{tikz}
 \usepackage{enumitem}
 \usetikzlibrary{positioning,arrows.meta,calc}
 
 \usepackage{xspace}
 \usepackage{xcolor}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 
 \newcommand{\HC}[2][inline]{\todo[color=blue!50,#1]{\sf \small\textbf{HC:} #2\normalsize}\xspace}
@@ -53,10 +53,10 @@
 \newcommand{\aggressive}{\textsc{Agg}\xspace}
 \newcommand{\variant}{\textsc{Var}\xspace}
 \newcommand{\off}{\textsc{Off}\xspace}
-    
+
 \newcommand{\strategy}[3]{{#1}/{#2}/{#3}}
-    
-\begin{document}
+
+%%% Front matter declarations. Capitalize normally; the class reformats them.
 
 \title{Deadline-Constrained Scheduling of Multi-Mode Task Chains under Fail-Stop Failures}
 
@@ -65,29 +65,47 @@
 % Real-Time Scheduling of Chains of Multi-Mode Tasks To Minimize Expected Output Error under Fail-Stop Failures
 % Real-Time Scheduling of Chains of Tasks with Multiple Execution Options to Minimize Expected Output Error under Fail-Stop Failures
 
+%% No titles (Dr., Prof.) in any of the names below.
+\author{Victor Pagan}
+%% TODO: month (May, August, or December) and year the degree is conferred.
+\degreemonth{May}
+\degreeyear{2027}
+\degree{Master of Science}
+\field{Computer Science}
+%% TODO: confirm the chairperson and list the other committee members,
+%% separated by "\\" (outside member last).
+\chair{Henri Casanova}
+\othermembers{Committee Member Two\\
+Committee Member Three}
+\keywords{fault tolerance, deadline-constrained scheduling, multi-mode task chains}
+%% Only printed on the title page with the "draft" or "proposal" class option.
+\versionnum{0.1.0}
 
-\author{
-%\IEEEauthorblockN{Victor Pagan\IEEEauthorrefmark{1},
-%Henri Casanova\IEEEauthorrefmark{2}}
-%\IEEEauthorblockA{Dept. of Information and Computer Sciences \\
-%     University of Hawai‘i at M\={a}noa, HI, U.S.A.\\
-%\IEEEauthorrefmark{1}vpagan@hawaii.edu,
-%\IEEEauthorrefmark{2}henric@hawaii.edu}
-%\and
-%\IEEEauthorblockN{Fr\'ed\'eric Suter}
-%\IEEEauthorblockA{Oak Ridge National Laboratory, TN, U.S.A\\
-%suterf@ornl.gov}
-}
+\begin{document}
 
+%% The title page counts as page i (unnumbered); roman numbering here keeps
+%% hyperref's page anchors distinct from page 1 of the body.
+\pagenumbering{roman}
 \maketitle
+
+\begin{frontmatter}
+
+%%% Optional front matter pages, in the order the class expects:
+%\copyrightpage
+%\begin{dedication} ... \end{dedication}
+%\begin{acknowledgments} ... \end{acknowledgments}
 
 \begin{abstract}
 \input{abstract}
 \end{abstract}
 
-\begin{IEEEkeywords}
-Fault tolerance, deadline-constrained scheduling, multi-mode task chains.
-\end{IEEEkeywords}
+\tableofcontents
+
+\listoftables
+
+\listoffigures
+
+\end{frontmatter}
 
 \input{sec-introduction}
 
@@ -107,7 +125,6 @@ Fault tolerance, deadline-constrained scheduling, multi-mode task chains.
 
 \input{sec-conclusion}
 
-\balance
 \bibliographystyle{ieeetr}
 \bibliography{references.bib}
 

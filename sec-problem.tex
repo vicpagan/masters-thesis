@@ -1,7 +1,7 @@
-\section{Problem Statement}
+\chapter{Problem Statement}
 \label{sec:problem}
 
-\subsection{Application Model}
+\section{Application Model}
 \label{sec:problem-application}
 
 The application is a chain of $M{\geq}1$
@@ -56,7 +56,7 @@ by which a task can reduce the error in its input data by performing
 additional computation~\cite{259428}.  The above model can account for this
 error reduction behavior by defining the $t$ and $e$ functions
 appropriately.  For the use cases that motivate this work, as that in
-Section~\ref{sec:use-case}, there is no possibility of error reduction
+Chapter~\ref{sec:use-case}, there is no possibility of error reduction
 (i.e., $e^i_j(x,y){\geq}y$).
 
 The execution of the application must complete by a deadline, $D{>}0$. The
@@ -68,7 +68,7 @@ the penalty for returning no usable output by the deadline. The value of
 $\efail$ is set to be larger than any achievable output error by a successful
 execution of $T_M$. 
 
-\subsection{Platform and Fault Model}
+\section{Platform and Fault Model}
 \label{sec:problem-execution}
 
 The platform comprises $N$ homogeneous
@@ -129,13 +129,13 @@ use both rollback/recovery and replication.
 %Future work? Ignore?
 
 
-\subsection{Scheduling Problem}
+\section{Scheduling Problem}
 \label{sec:problem-scheduling}
 
 We consider the problem of \emph{minimizing the expected output error} for
 a single invocation of the application, released at time zero and subject
 to an end-to-end deadline $D$.  As seen in our motivating use case in
-Section~\ref{sec:use-case}, the application is intended to be invoked
+Chapter~\ref{sec:use-case}, the application is intended to be invoked
 periodically. But successive invocations do not overlap, no unfinished work
 carries over beyond a deadline, and all PEs are available at the beginning
 of each invocation.  Each invocation can thus be scheduled independently

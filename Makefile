@@ -41,4 +41,4 @@ $(MAIN).pdf: $(TEX_SOURCES) $(BIB_SOURCES) ./figures/delta_t_results.pdf  ./figu
 
 
 clean:
-	/bin/rm -rf *.aux *log *.blg *.bbl *.out comment.cut $(MAIN).pdf
+	/bin/rm -rf *.aux *log *.blg *.bbl *.out *.toc *.lof *.lot comment.cut $(MAIN).pdf

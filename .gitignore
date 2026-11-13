@@ -1,2 +1,34 @@
 # macos stuff
 .DS_Store
+
+# pyenv
+.python-version
+
+# python (figure plotting scripts)
+__pycache__/
+*.pyc
+
+# editor backup/swap files
+*~
+.*.swp
+
+# LaTeX build files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.synctex.gz(busy)
+*.synctex(busy)
+*.dvi
+*.tdo
+comment.cut
+
+# latex make
+.latexmkrc

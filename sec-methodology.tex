@@ -1,4 +1,4 @@
-\section{Experimental Methodology}
+\chapter{Experimental Methodology}
 \label{sec:methodology}
 
 Our simulator, application workloads, simulation results, and results processing scripts are publicly available~\cite{HIDDEN_URL}.
@@ -7,7 +7,7 @@ Our simulator, application workloads, simulation results, and results processing
 
 
 
-\subsection{Application Workloads}
+\section{Application Workloads}
 
 Some of our results are illustrated for the fusion
 science application in Fig.~\ref{fig:use_case}. Tasks
@@ -58,7 +58,7 @@ decisions.  For each generated application configuration we
 compute $p_s$, resp. $p_r$, the probability that the execution on a single
 PE succeeds by the deadline when using only safe, resp. risky, execution
 modes.  $p_s$ and $p_r$ are computed using dynamic programming (see
-Section~\ref{sec:onehost}) using the same $D$, $\lambda$, $R$, $B_r$, and
+Chapter~\ref{sec:onehost}) using the same $D$, $\lambda$, $R$, $B_r$, and
 $B_w$ values as that used in simulation.  To eliminate trivially easy or
 hard cases, we filter out configurations with $p_s{<}0.15$, $p_s{>}0.85$,
 or $p_r{<}0.01$.  The $D$ and $\lambda$ values merely establish a common
@@ -71,7 +71,7 @@ different scheduling principles can be compared systematically.
 
 %\TODO{Perhaps (likely cannot due to space) add data to justify that the configurations are really diverse....}
 
-\subsection{Simulation Methodology}
+\section{Simulation Methodology}
 
 Our simulator builds on a simulation framework designed to model real-world
 software/hardware platforms, and in particular network and I/O operations,

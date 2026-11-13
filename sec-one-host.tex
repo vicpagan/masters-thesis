@@ -1,11 +1,11 @@
-\section{One-PE Platform}
+\chapter{One-PE Platform}
 \label{sec:onehost}
 
 With a single PE, only one task can execute at a time and rollback/recovery is the only way to cope with failures.  For a single task, with fixed execution time and zero restart overhead, computing the probability of completion by a deadline is non-trivial as it requires characterizing the ``longest gap" distribution of a Poisson process~\cite{OMWONYLEE2020124194}.  Furthermore, when considering a chain of tasks there is a continuum of possible values for the time remaining until the deadline at the next scheduling decision.  To make the continuous-time scheduling problem tractable, we thus discretize time. 
 For a given application, we use dynamic programming to precompute scheduling decisions in time polynomial in the number of discrete time intervals, and $O(1)$-time scheduling decisions at runtime.
 
 
-\subsection{Scheduling Strategy}
+\section{Scheduling Strategy}
 \label{sec:onehost:solution}
 
 Let time be discretized as a sequence of time steps 
@@ -128,7 +128,7 @@ with task $T_{i_0}$, $i_0 > 1$. We leave investigating this possibility, includi
 the problem of determining the best $i_0$, for future work.
 
 
-\subsection{Discretization Selection}
+\section{Discretization Selection}
 
 A practical question is: what value of $\deltat$ should be used?  A
 smaller $\deltat$ value yields a better approximation of the continuous-time problem,
@@ -152,11 +152,12 @@ the recursion. In this case we disregard the $u=0$ term in the summation
 (and renormalize probabilities).
 
 \begin{figure}[ht!]
-	\includegraphics[width=\columnwidth]{./figures/delta_t_results.pdf}	
+	\centering
+	\includegraphics[width=0.85\textwidth]{./figures/delta_t_results.pdf}	
 	\caption{Expected error bounds, sample simulated
 	error for 5 million repeats (95\% confidence interval shown by
 	shaded region), and bound computation time vs. $\deltat$, for the
-	fusion science use case in Section~\ref{sec:use-case}.}
+	fusion science use case in Chapter~\ref{sec:use-case}.}
 	\label{fig:delta_t}
 
 \end{figure}
@@ -165,7 +166,7 @@ In practice, a user would pick a value for \deltat so that the difference
 between the two bounds is below some threshold, and then make scheduling
 decisions according to the dynamic program for the lower bound or for the
 upper bound. For instance, Fig.~\ref{fig:delta_t} plots the two bounds
-vs. \deltat for the use case in Section~\ref{sec:use-case}.  As expected,
+vs. \deltat for the use case in Chapter~\ref{sec:use-case}.  As expected,
 the distance between the two bounds increases as \deltat increases. But
 the increase is not monotonic, as seen in the jagged shape of the
 curves. This behavior is easily explained by discretization effects. 
@@ -184,7 +185,7 @@ We also wish to verify that our analytical bounds are consistent with our
 simulator's implementation. To this end, Fig.~\ref{fig:delta_t} also shows
 the simulated sample mean error and its 95\% confidence interval, over 5
 million trials, each for a different random seed (the simulator is executed in
-``model-consistent'' mode, as described in Section~\ref{sec:methodology}).
+``model-consistent'' mode, as described in Chapter~\ref{sec:methodology}).
 The simulated scheduling algorithm uses results produced by the dynamic
 program for the lower or for the upper bound (both results are shown but
 coincide almost exactly) to make scheduling decisions, without using
@@ -192,13 +193,13 @@ temporal redundancy.  Results in the figure confirm that the simulated
 sample mean error lies between the two bounds, and so does the confidence
 interval provided \deltat is large enough.
 
-All results in the rest of this paper are obtained with $\deltat{=}5$. The
+All results in the rest of this thesis are obtained with $\deltat{=}5$. The
 above results show this value to be sufficient to achieve high accuracy for
 our deadline $D{=}10^4$ (i.e., 2,000 discretized time steps). Recall
 that this is the deadline used in all our experiments, unless specified otherwise.
 
 
-\subsection{Platform Provisioning for Parallel Tasks}
+\section{Platform Provisioning for Parallel Tasks}
 \label{sec:data_parallel}
 
 In practice, application tasks may be
@@ -207,12 +208,13 @@ parallel programs that can be executed on $n$ homogeneous compute nodes
 consider $n$ gang-scheduled compute nodes as a single PE that executes
 tasks one at a time and fails with rate $n{\times}\lambda_{node}$, where
 $\lambda_{node}$ is the failure rate of a single node. (In
-Section~\ref{sec:multihost}, we consider the case of $N$ independently
+Chapter~\ref{sec:multihost}, we consider the case of $N$ independently
 schedulable PEs.)
 
 \begin{figure}[ht!]
-	\includegraphics[width=\columnwidth]{./figures/data_parallel_results.pdf}	
-	\caption{Approximate optimal expected error vs. number of compute nodes for different deadlines, for the fusion use case in Section~\ref{sec:use-case}.}
+	\centering
+	\includegraphics[width=0.85\textwidth]{./figures/data_parallel_results.pdf}	
+	\caption{Approximate optimal expected error vs. number of compute nodes for different deadlines, for the fusion use case in Chapter~\ref{sec:use-case}.}
 	\label{fig:data_parallel}
 \end{figure}
 
@@ -241,7 +243,7 @@ allow a user to make informed decisions, e.g., select a value of $n$ and a
 deadline that achieve a desirable compromise between hardware cost,
 timeliness, and expected error.
 
-%\subsection{In-Situ Executions}
+%\section{In-Situ Executions}
 %
 %Another application of our results is provide a sound comparison of different execution
 %options. For instance, one may wish to determine whether on should execute
@@ -252,7 +254,7 @@ timeliness, and expected error.
 %\TODO{This section is perhaps unnecessary. We should update the code to allow in-situ executions. Done with the USE CASE}
 
 
-\subsection{Evaluation of Simple Heuristics}
+\section{Evaluation of Simple Heuristics}
 \label{sec:onehost:heuristics}
 
 Our dynamic programming approach is usable in practice. It also
@@ -296,7 +298,8 @@ beneficial, and our results show improvements in mean error ranging from 0\% to
 all that follows, we only discuss results with temporal redundancy enabled.
 
 \begin{figure}[ht!]
-	\includegraphics[width=\columnwidth]{./figures/relative_error_vs_dynamic.pdf}
+	\centering
+	\includegraphics[width=0.85\textwidth]{./figures/relative_error_vs_dynamic.pdf}
 	\caption{Mean error increases relative to the dynamic programming approach in the one-PE case (95\% paired-bootstrap confidence intervals shown).}
 	\label{fig:one_host_results}
 \end{figure}

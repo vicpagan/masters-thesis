@@ -1,10 +1,10 @@
-\section{Multi-PE Platform}
+\chapter{Multi-PE Platform}
 \label{sec:multihost}
 
 
-In this section we consider a platform with $N{>}1$ independently
+In this chapter we consider a platform with $N{>}1$ independently
 schedulable PEs.  A direct extension of the dynamic programming approach in
-the previous section would entail tracking the joint state of all task
+the previous chapter would entail tracking the joint state of all task
 executions on all PEs. The state space is thus combinatorial in $N$
 (exponential with a straightforward representation), making the algorithm
 no longer pseudo-polynomial time (if $N$ is considered part of the input).
@@ -14,7 +14,7 @@ NP-hardness for the one-PE case. Whether a stronger complexity result is
 possible for the multi-PE case is an open question. Hereafter, we
 present several heuristics, some of which build on the one-PE dynamic program.
 
-\subsection{Heuristics}
+\section{Heuristics}
 \label{sec:multi-host:heuristics}
 
 As in the one-PE case, we consider the
@@ -35,7 +35,7 @@ heuristic. This process is repeated until $\sum_{j=1}^{K} n_j = N$.
 Hereafter we refer to these eight multi-PE heuristics as the ``greedy"
 heuristics.
 
-\subsection{Temporal Redundancy}
+\section{Temporal Redundancy}
 
 The design space for temporal redundancy is larger than in the one-PE case,
 and we consider three options: 
@@ -56,7 +56,7 @@ and we consider three options:
 \end{compactitem}
 
 
-\subsection{Reactive Rescheduling}
+\section{Reactive Rescheduling}
 
 With multiple PEs, there is an opportunity for
 \emph{reactive rescheduling}: upon the completion 
@@ -83,7 +83,7 @@ options:
 \end{compactitem}
 \noindent
 
-\subsection{Evaluation Methodology}
+\section{Evaluation Methodology}
 
 We define a scheduling strategy as a combination of \emph{design choices},
 \strategy{A}{B}{C}, where A is the heuristic, B is the temporal redundancy
@@ -122,7 +122,7 @@ We exclude \random from all results hereafter, considering thus
 $8{+}1{=}9$ heuristics for a total of $9{\times}3{\times}3{=}81$
 strategies.
 
-\subsection{Design Choices for the Greedy Heuristics}
+\section{Design Choices for the Greedy Heuristics}
 
 \noindent{\bf Is the multi-PE greedy extension useful?} -- Yes. We conduct
 experiments in which each of the eight one-PE heuristics is used
@@ -210,7 +210,7 @@ detrimental as the number of PEs increases.  Hereafter, we only consider
 
 
 
-\subsection{Design Choices for the \dynamic Heuristic}
+\section{Design Choices for the \dynamic Heuristic}
 
 \noindent{\bf Should reactive rescheduling be used?} --
 Yes, with \aggressive. We note that \aggressive is only slightly better than
@@ -234,7 +234,7 @@ strategies that use \dynamic, we only consider
 \strategy{\dynamic}{\dependent}{\aggressive} (using the same
 \dependent temporal redundancy option as for the greedy heuristics).
 
-\subsection{Which Heuristic for Which Regime?}
+\section{Which Heuristic for Which Regime?}
 \label{sec:multihost:regime}
 
 The results in the two previous sections identify the scheduling strategy
@@ -261,7 +261,8 @@ For $N{=}16$, \foresighted-\errorlevel is
 the best heuristic, with \foresighted-\ratio a close second.
 
 \begin{figure}
-        \includegraphics[width=\columnwidth]{./figures/multi_host_ranking.pdf}
+        \centering
+        \includegraphics[width=0.6\textwidth]{./figures/multi_host_ranking.pdf}
 	\caption{Average degradation from best mean error vs. $N$ for the heuristics used
 	in the three non-dominated strategies.}
         \label{fig:ranking}
